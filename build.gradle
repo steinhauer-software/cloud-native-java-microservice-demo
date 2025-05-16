@@ -24,6 +24,10 @@ dependencies {
     // Actuator für Health & Metrics Endpunkte
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+    // AMQP für RabbitMQ
+    implementation "org.springframework.boot:spring-boot-starter-amqp"
+
+
     runtimeOnly 'com.h2database:h2'
 
     compileOnly 'org.projectlombok:lombok'

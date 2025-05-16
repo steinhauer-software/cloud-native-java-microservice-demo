@@ -154,3 +154,24 @@ minikube service product-service --url
 ----
 kubectl logs -f deployment/product-service
 ----
+
+== Event-Driven-Development Beispiel mit RabbitMQ
+In der link:docker-compose.yml[docker-compose.yml] ist alles so konfiguriert, dass ein RabbitMQ gestartet wird, der lokal unter http://localhost:5672 (Username & Passwort: _guest_) verfügbar ist.
+
+Das Starten ist denkbar einfach:
+
+.Starten von RabbitMQ und der Anwendung in Docker
+----
+docker compose up
+----
+
+Beim Erzeugen von neuen Produkten wird nun ein Event veröffentlicht. Auf dieses lauscht `ProductEventListener` und schreibt ins Log:
+
+.Beispiel Log-Zeile, wenn Produkt erzeugt wurde
+----
+product-service-1  | 📦 Neues Produkt erstellt: ID=4, Name=circuit
+----
+
+Am Einfachsten ist es, einfach link:src/main/http/02_add_product.http[02_add_product.http] auszuführen, um zufällige Produkte hinzuzufügen.
+
+Beendet werden kann entweder mit _Ctrl+C_ oder, wenn `docker compose up -d` ausgeführt wurde und es damit im Hintergrund läuft, mit `docker compose down`.
