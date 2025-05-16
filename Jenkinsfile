@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'JDK 21'
+    }
+
     environment {
         VERSION = "${env.BUILD_NUMBER}"
     }
