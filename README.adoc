@@ -213,5 +213,26 @@ Im link:Jenkinsfile[] ist ein einfaches Build definiert.
 
 Dieses setzt voraus:
 
-1. Das ein `JDK 21` definiert ist und auf das `JAVA_HOME` eines JDK 21 zeigt
+1. Das ein `JDK 21` (wird in Jenkinsfile referenziert) definiert ist und auf das `JAVA_HOME` eines JDK 21 zeigt
 2. In den globalen Einstellungen sollte die Umgebungsvariable `PATH` auf `/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin` gesetzt sein (beim Mac)
+3. Credentials für git sind hinterlegt
+4. Kubernetes "Credentials" hinterlegen:
+  - Jenkins verwalten -> Credentials -> System -> Global credentials
+  - Credentials hinzufügen
+  - Secret file
+  - `ID` auf `minikube-config` setzen (wird in Jenkinsfile referenziert!)
+  - `~/.kube/config` hinzufügen (oder Kopie davon erstellen und hier hinterlegen)
+  - Beschreibung: `Minikube Kubernetes Config`
+
+Dann kann die Pipeline erstellt werden:
+
+1. Neues Item -> Pipeline
+2. Namen eingeben
+3. Bei Pipeline Definition "Pipeline script from SCM" wählen
+4. SCM -> Git
+5. Repository URL -> URL
+6. Credentials auswählen, die vorhin dafür angelegt wurden
+7. Branch Specified: `*/main`
+8. Speichern
+9. Build starten
+
