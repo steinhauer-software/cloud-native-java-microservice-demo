@@ -209,8 +209,20 @@ Danach, ebenfalls im **Stack Management**:
 Nun sollte under **Analytics** -> **Dashboards** das neue _Product Service Dashboard_ verfügbar sein.
 
 == Jenkins
-Im link:Jenkinsfile[] ist ein einfaches Build definiert.
+Am Einfachsten ist es, Jenkins via homebrew installieren:
 
+.Jenkins LTS Version via homebrew installieren
+----
+brew install jenkins-lts
+----
+
+.Starten und Stoppen des Dienstes
+----
+brew service start jenkins-lts
+brew service stop jenkins-lts
+----
+
+Im link:Jenkinsfile[] ist ein einfaches Build definiert.
 Dieses setzt voraus:
 
 1. Das ein `JDK 21` (wird in Jenkinsfile referenziert) definiert ist und auf das `JAVA_HOME` eines JDK 21 zeigt
