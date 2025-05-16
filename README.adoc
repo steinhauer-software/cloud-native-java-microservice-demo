@@ -84,3 +84,17 @@ curl -X DELETE http://localhost:8080/api/products/1
 ----
 Invoke-WebRequest -Uri "http://localhost:8080/api/products/1" -Method DELETE
 ----
+
+== Docker
+Das Projekt beinhaltet ein simples link:Dockerfile[Dockerfile].
+
+.Image bauen
+----
+docker build -t product-service:latest .
+----
+
+.Container bauen und ausführen (Beenden mit Ctrl+C)
+----
+## Container wird nach beenden gelöscht (--rm)
+docker run --rm --name product-service-tmp -p 8080:8080 product-service:latest
+----
