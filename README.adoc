@@ -98,3 +98,59 @@ docker build -t product-service:latest .
 ## Container wird nach beenden gelöscht (--rm)
 docker run --rm --name product-service-tmp -p 8080:8080 product-service:latest
 ----
+
+== Kubernetes
+Natürlich sollten wir jetzt auch in Kubernetes deployen.
+
+Lokal benutzen wir https://minikube.sigs.k8s.io/docs/[Minikube]. Dies kann wie folgt gestartet werden:
+
+.Minikube auf MacOS starten
+----
+minikube start --cpus=4 --memory=8g --driver=docker
+----
+
+.Minikube auf WIndows starten
+----
+minikube start --cpus=4 --memory=8g --driver=hyperv
+----
+
+Dann setzen wir die Umgebung so, dass wir innerhalb von Minikube bauen:
+
+.MacOS Umgebung für Minikube Build setzen
+----
+eval $(minikube docker-env)
+----
+
+[,powershell]
+.Windows Umgebung für Minikube Build setzen
+----
+minikube docker-env | Invoke-Expression
+----
+
+und dann können wir bauen:
+
+.Docker Build wie zuvor
+----
+docker build -t product-service:latest .
+----
+
+Und dann geht es ans Deployment:
+
+.Deployment ins Minikube
+----
+kubectl apply -f k8s/k8s-deployment.yml
+kubectl apply -f k8s/k8s-service.yml
+----
+
+
+.Zugriff auf Services
+[,bash]
+----
+minikube service product-service --url
+----
+
+.Logs anzeigen
+[,bash]
+----
+kubectl logs -f deployment/product-service
+----

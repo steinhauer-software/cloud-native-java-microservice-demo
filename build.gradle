@@ -21,6 +21,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // Actuator für Health & Metrics Endpunkte
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     runtimeOnly 'com.h2database:h2'
 
     compileOnly 'org.projectlombok:lombok'
