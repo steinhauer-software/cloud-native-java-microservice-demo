@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'gradle:8.13-jdk21'
+        }
+    }
 
     environment {
         VERSION = "${env.BUILD_NUMBER}"
@@ -8,7 +12,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh './gradlew clean build'
+                sh 'gradle clean build'
             }
         }
 
