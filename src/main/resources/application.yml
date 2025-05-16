@@ -21,3 +21,11 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+logging:
+  level:
+    root: INFO
+    software.steinhauer.schulung: DEBUG
+    org.springframework.web: INFO
+    # Logstash-bezogene Logging
+    net.logstash.logback: DEBUG

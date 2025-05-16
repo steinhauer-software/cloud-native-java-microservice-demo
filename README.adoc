@@ -175,3 +175,35 @@ product-service-1  | 📦 Neues Produkt erstellt: ID=4, Name=circuit
 Am Einfachsten ist es, einfach link:src/main/http/02_add_product.http[02_add_product.http] auszuführen, um zufällige Produkte hinzuzufügen.
 
 Beendet werden kann entweder mit _Ctrl+C_ oder, wenn `docker compose up -d` ausgeführt wurde und es damit im Hintergrund läuft, mit `docker compose down`.
+
+== Logging & Monitoring
+In der link:docker-compose.monitoring.yml[] ist eine Konfiguration hinterlegt, mit der wir folgende Services bekommen:
+
+* Elastic-Stack mit
+** Logstash
+** http://localhost:9200[Elasticsearch]
+** http://localhost:5601[Kibana]
+* http://localhost:9090[Prometheus]
+* http://localhost:3000[Grafana]
+* http://localhost:5672[RabbitMQ]
+
+In den gleichnamigen Ordnern im Wurzelverzeichnis des Projektes liegen einige Konfigurationen.
+
+Es wird auch kontinuierlich `DemoDataGenerator` aufgerufen, welcher Daten generiert. Das erzeugt Logs, welche dann in den Statistiken auftauchen.
+
+Damit in Kibana etwas zu sehen ist. warte kurz, bis alles fertig gestartet ist. Dann
+
+1. Öffne http://localhost:5601[Kibana]
+2. Navigiere zu **Stack Management** -> **Index Management** -> **Create Index**
+3. Gib `product-service-*` als Pattern ein
+4. Wähle `@timestamp` als Zeitfeld
+5. Klicke auf **Create index pattern**
+
+Danach, ebenfalls im **Stack Management**:
+
+1. Navigiere zu **Saved Objects**
+2. Klicke oben rechts auf **Import**
+3. Lade die Datei link:kibana/dashboards/product-service-dashbaords.ndjson[product-service-dashbaords.ndjson] hoch
+4. Speichere
+
+Nun sollte under **Analytics** -> **Dashboards** das neue _Product Service Dashboard_ verfügbar sein.

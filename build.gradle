@@ -27,6 +27,9 @@ dependencies {
     // AMQP für RabbitMQ
     implementation "org.springframework.boot:spring-boot-starter-amqp"
 
+    // Monitoring & Logging
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
 
     runtimeOnly 'com.h2database:h2'
 
