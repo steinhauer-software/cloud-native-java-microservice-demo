@@ -34,7 +34,7 @@ pipeline {
                 withCredentials([file(credentialsId: "minikube-config", variable: 'KUBECONFIG')]) {
                     sh '''
                     sed -i "" "s/\\${VERSION}/${VERSION}/g" k8s/k8s-deployment.yml
-                    kubectl --kubeconfig=${KUBECONFIG} apply -f k8s/k8s-deployment.yml
+                    kubectl --kubeconfig="${KUBECONFIG}" apply -f k8s/k8s-deployment.yml
                     '''
                 }
             }
