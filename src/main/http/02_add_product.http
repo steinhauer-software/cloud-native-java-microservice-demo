@@ -1,0 +1,9 @@
+# This will add a new product to the list
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "name": "{{$random.hacker.noun}}",
+  "description": "{{$random.chuckNorris.fact}}",
+  "price": {{$random.integer(100, 1000)}}.{{$random.integer(0, 99)}}
+}

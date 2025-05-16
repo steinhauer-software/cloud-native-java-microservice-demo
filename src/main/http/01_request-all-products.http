@@ -1,0 +1,4 @@
+## Simple, yet effective: This issues a GET request towards our microservices
+
+GET http://localhost:8080/api/products
+

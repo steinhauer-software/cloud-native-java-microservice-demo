@@ -1,0 +1,2 @@
+# Get the details for a specific product by ID
+GET http://localhost:8080/api/products/2

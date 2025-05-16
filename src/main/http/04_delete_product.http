@@ -1,0 +1,3 @@
+# Deletes a product with given ID
+
+DELETE http://localhost:8080/api/products/2

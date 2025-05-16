@@ -1,0 +1,86 @@
+= Demo für Spring Boot Microservice
+
+In diesem Gradle-basierten Projekt wird gezeigt, wie mit wenig Code ein kompletter Microservice mit voller CRUD
+Funktionalität erstellt werden.
+
+== Technologien und Anforderungen
+Dieses Projekt nutzt:
+
+- Java 21
+- Spring Boot 3.4.5
+- Gradle 8.13
+- Lombok
+- H2
+
+Es sollte auf allen Umgebungen, sogar Windows, ausführbar sein, solange `java` verfügbar ist.
+
+== Wie ausführen?
+Im Wurzelverzeichnis kann `./gradlew clean build bootRun` ausgeführt werden. Danach stehen die REST Endpunkte unter
+`http://localhost:8080/api` zur Verfügung.
+
+Daten werden in einer in-memory H2 Datenbank gespeichert. Es wird also nichts persistiert.
+Die Initialisierung geschieht mittels der link:src/main/resources/data.sql[data.sql] Datei.
+
+Zur Laufzeit kann über http://localhost:8080/h2-console die H2 Konsole aufgerufen werden.
+
+== Beispiel-Requests
+Es gibt für jeden Request-Typ ein eigenes http-Client Script unter link:./src/main/http/[src/main/http].
+
+Hier aber auch noch eine Übersicht für die Verwendung von `curl` bzw. (unter Windows PowerShell) mit `Invoke-WebRequest`.
+
+In den Beispielen verwende ich `jq` zusammen mit `curl`. Das formatiert in diesem Fall nur die Antwort. Wenn es nicht installiert sein sollte, kann es natürlich weggelassen werden.
+
+[,bash]
+.GET Request für alle verfügbaren Produkte
+----
+curl -H "Content-Type: application/json" http://localhost:8080/api/products | jq
+----
+
+[,powershell]
+.GET Request für alle verfügbaren Produkte (Windows)
+----
+Invoke-WebRequest -Uri "http://localhost:8080/api/products/" -Method GET | Select-Object -ExpandProperty Content
+----
+
+[,bash]
+.GET Request für spezifisches Produkt
+----
+curl -H "Content-Type: application/json" http://localhost:8080/api/products/1 | jq
+----
+
+[,powershell]
+.GET Request für alle verfügbaren Produkte (Windows)
+----
+Invoke-WebRequest -Uri "http://localhost:8080/api/products/1" -Method GET | Select-Object -ExpandProperty Content
+----
+
+[,bash]
+.POST Request, um neues Produkt hinzuzufügen
+----
+curl -X POST http://localhost:8080/api/products \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Tablet","description":"New tablet model","price":499.99}'
+----
+
+[,powershell]
+.POST Request, um neues Produkt hinzuzufügen
+----
+$body = @{
+  name = "Tablet"
+  description = "New tablet model"
+  price = 499.99
+} | ConvertTo-Json
+Invoke-WebRequest -Uri "http://localhost:8080/api/products" -Method POST -Body $body -ContentType "application/json" | Select-Object -ExpandProperty Content
+----
+
+[,bash]
+.DELETE Request
+----
+curl -X DELETE http://localhost:8080/api/products/1
+----
+
+[,powershell]
+.DELETE Request (Windows)
+----
+Invoke-WebRequest -Uri "http://localhost:8080/api/products/1" -Method DELETE
+----
