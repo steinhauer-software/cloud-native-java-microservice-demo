@@ -207,3 +207,11 @@ Danach, ebenfalls im **Stack Management**:
 4. Speichere
 
 Nun sollte under **Analytics** -> **Dashboards** das neue _Product Service Dashboard_ verfügbar sein.
+
+== Jenkins
+Im link:Jenkinsfile[] ist ein einfaches Build definiert.
+
+Dieses setzt voraus:
+
+1. Das ein `JDK 21` definiert ist und auf das `JAVA_HOME` eines JDK 21 zeigt
+2. In den globalen Einstellungen sollte die Umgebungsvariable `PATH` auf `/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin` gesetzt sein (beim Mac)
